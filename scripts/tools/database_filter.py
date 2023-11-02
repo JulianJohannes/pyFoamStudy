@@ -4,8 +4,8 @@
 from argparse import ArgumentParser, RawTextHelpFormatter
 import pandas as pd
 import os.path
-from leia import studycsv
-import leia
+from pyFoamStudy import studycsv
+import pyFoamStudy
 
 """
 """
@@ -136,10 +136,10 @@ def main():
             
 
     if args.rm_file:
-        cases = leia.io.read_cases(args.rm_file)
+        cases = pyFoamStudy.io.read_cases(args.rm_file)
         study_df = studycsv.filter_cases(study_df, cases, mode='rm')
     if args.keep_file:
-        cases = leia.io.read_cases(args.keep_file)
+        cases = pyFoamStudy.io.read_cases(args.keep_file)
         study_df = studycsv.filter_cases(study_df, cases, mode='keep')
 
     study_df.reset_index(drop=True)

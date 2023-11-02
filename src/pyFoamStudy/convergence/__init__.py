@@ -1,7 +1,7 @@
 from . import _config
 import pandas as pd
 import numpy as np
-from leia import database, studycsv
+from pyFoamStudy import database, studycsv
 import warnings
 
 

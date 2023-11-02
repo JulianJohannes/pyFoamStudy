@@ -10,8 +10,8 @@ from itertools import zip_longest
 import matplotlib.pyplot as plt
 import os.path
 import os
-from leia import convergence
-from leia.convergence import _config
+from pyFoamStudy import convergence
+from pyFoamStudy.convergence import _config
 import yaml
 
 time_format = "%Y-%m-%d_%H%M%S"

@@ -11,8 +11,8 @@ import os
 import re
 from matplotlib import rcParams
 import matplotlib.pyplot as plt
-from leia import database, plot, studycsv
-import leia
+from pyFoamStudy import database, plot, studycsv
+import pyFoamStudy
 from argparse import ArgumentParser, RawTextHelpFormatter
 from dataclasses import dataclass
 rcParams["text.usetex"] = True
@@ -296,7 +296,7 @@ def table(study_df, properties, savedir, **kwargs):
             
         mi = study_df.columns
         database_columns = mi[mi.get_locs(['database'])].to_list()
-        studyparameters = list(leia.studycsv.get_studyparameters(study_df.columns))
+        studyparameters = list(pyFoamStudy.studycsv.get_studyparameters(study_df.columns))
         error_df = database.df_represantive_error_rows(study_df, prop.column)
         error_df[database_columns + studyparameters + [('case','TIME')] + columns ].to_csv(os.path.join(savedir, '_'.join([prop.study, prop.figstr, 'table.csv'])), index=False)
 
@@ -490,10 +490,10 @@ def main():
             
 
     if args.rm_file:
-        cases = leia.io.read_cases(args.rm_file)
+        cases = pyFoamStudy.io.read_cases(args.rm_file)
         study_df = studycsv.filter_cases(study_df, cases, mode='rm')
     if args.keep_file:
-        cases = leia.io.read_cases(args.keep_file)
+        cases = pyFoamStudy.io.read_cases(args.keep_file)
         study_df = studycsv.filter_cases(study_df, cases, mode='keep')
 
     study_df.reset_index(drop=True)
@@ -524,8 +524,8 @@ def main():
     if args.method:
         kwargs['method'] = args.method
 
-    study_df = leia.derived_properties.append_TV(study_df, ('case','E_VOL_ALPHA_REL'), ('case','E_VOL_ALPHA_REL_TV'))
-    # study_df = leia.derived_properties.append_TVtime(study_df, ('case','E_VOL_ALPHA_REL'), ('case','E_VOL_ALPHA_REL_TVtime'))
+    study_df = pyFoamStudy.derived_properties.append_TV(study_df, ('case','E_VOL_ALPHA_REL'), ('case','E_VOL_ALPHA_REL_TV'))
+    # study_df = pyFoamStudy.derived_properties.append_TVtime(study_df, ('case','E_VOL_ALPHA_REL'), ('case','E_VOL_ALPHA_REL_TVtime'))
     
     properties = property_dict(template, study, mesh=args.mesh)
     properties = check_properties_in_studydf(properties, study_df)
@@ -533,7 +533,7 @@ def main():
     if ('table' in args.plot or 'rank-table' in args.plot) \
         and not any(map(lambda col: bool(re.match('O[(_].*', col[1])), study_df.columns)):
             print('Calc convergence') 
-            study_df = leia.convergence.add_convergencerates(
+            study_df = pyFoamStudy.convergence.add_convergencerates(
                 study_df, 
                 studyparameters = study_df.columns[study_df.columns.get_loc('studyparameters')], 
                 refinement_parameter = studycsv.get_refinementlabel(study_df), 

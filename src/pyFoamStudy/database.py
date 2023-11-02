@@ -27,8 +27,8 @@ Database
 """
 
 import pandas as pd
-import leia
-from leia.convergence import _config
+import pyFoamStudy
+from pyFoamStudy.convergence import _config
 
 
 # def isErrorColumn(errorcolumn):
@@ -77,14 +77,14 @@ def df_represantive_error_rows(study_df, errorcolumn, timecolumn = ('case','TIME
     assert isErrorColumn(errorcolumn), f'{errorcolumn} does not correspond to writing convention for a error column.'
     indices = []
     for _, case_df in study_df.groupby(by=[('database','CASE'),('database','M_TIME')]):
-        idx = leia.convergence.get_row(case_df[[timecolumn,errorcolumn]]).name
+        idx = pyFoamStudy.convergence.get_row(case_df[[timecolumn,errorcolumn]]).name
         indices.append(idx)
     return study_df.loc[indices]
 
 def database_smallest(df, columns, nsmallest=10):
     mi = df.columns
     database = mi[mi.get_locs(['database'])].to_list()
-    studyparameters = list(leia.studycsv.get_studyparameters(df.columns))
+    studyparameters = list(pyFoamStudy.studycsv.get_studyparameters(df.columns))
 
     if columns[0] not in df.columns:
         raise RuntimeError(f"Main columns {columns[0]} is not in DataFrame. Can not sort.")

@@ -10,8 +10,8 @@ from itertools import zip_longest
 import matplotlib.pyplot as plt
 import os.path
 import os
-from leia import convergence
-from leia.convergence import _config
+from pyFoamStudy import convergence
+from pyFoamStudy.convergence import _config
 
 
 refinement_labels = ['N_CELLS', 'MAX_CELL_SIZE']

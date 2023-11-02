@@ -7,8 +7,8 @@ from shlex import quote
 import os
 import os.path
 import time
-from leia.studycsv import time_format
-import leia
+from pyFoamStudy.studycsv import time_format
+import pyFoamStudy
 
 usage = """
 Creates the directory study_<STUDYNAME> for a pyFoam study, copies the template case, parameter files into it and 
@@ -72,7 +72,7 @@ def create_infofile(args):
         "parameterfile" : args.paramfile,
         "creationtime"  : time.strftime(time_format),
     }
-    leia.io.write_info(info, infofile)
+    pyFoamStudy.io.write_info(info, infofile)
 
     
 

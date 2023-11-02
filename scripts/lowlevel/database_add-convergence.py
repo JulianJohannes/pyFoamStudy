@@ -3,7 +3,7 @@
 
 from argparse import ArgumentParser, RawTextHelpFormatter
 import pandas as pd
-from leia import convergence, studycsv, database
+from pyFoamStudy import convergence, studycsv, database
 
 app_description = \
 f"""

@@ -7,8 +7,8 @@ from shlex import quote
 import os
 import os.path
 from glob import glob
-import leia
-from leia.studycsv import time_format
+import pyFoamStudy
+from pyFoamStudy.studycsv import time_format
 import time
 
 usage = """
@@ -78,7 +78,7 @@ def add_to_infofile(info, args):
     info['pyFoam_variationfile'] = args.pyFoam_variationfile
     info['json_variationfile'] = args.json_variationfile
     info['inittime'] = time.strftime(time_format)
-    leia.io.write_info(info, args.infofile)
+    pyFoamStudy.io.write_info(info, args.infofile)
 
     
 def cp_extrafiles_to_concrete_cases(args, extrafiles, casesfile):
@@ -100,7 +100,7 @@ def main():
     basename_studydir = os.path.basename(os.path.abspath(args.studydir))
     args.infofile = os.path.join(args.studydir, f"{basename_studydir}.info")
 
-    info = leia.io.read_info(args.infofile)
+    info = pyFoamStudy.io.read_info(args.infofile)
 
     args.metaname = info['metaname']
     args.studyname = info['studyname']

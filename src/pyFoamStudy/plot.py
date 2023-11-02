@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from leia import convergence, studycsv
+from pyFoamStudy import convergence, studycsv
 
 import itertools
 

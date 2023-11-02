@@ -4,7 +4,7 @@
 from argparse import ArgumentParser, RawTextHelpFormatter
 import pandas as pd
 import os.path
-from leia import studycsv
+from pyFoamStudy import studycsv
 import re
 
 """

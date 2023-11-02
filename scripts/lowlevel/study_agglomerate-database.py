@@ -5,13 +5,13 @@ from argparse import ArgumentParser, RawTextHelpFormatter
 import pandas as pd
 import os.path
 import warnings
-import leia
+import pyFoamStudy
 import yaml
 import json
 
 app_description = \
 f"""
-Script merges and concatenates case specific {leia.studydir.CASE_CSVs} CSV files into one large database CSV file.
+Script merges and concatenates case specific {pyFoamStudy.studydir.CASE_CSVs} CSV files into one large database CSV file.
 
 Note:
 Run this script from within the directory where the actual study cases reside.
@@ -42,7 +42,7 @@ def agglomerate_study_data(args, cases, CSVs):
     
     for case in cases:
         studyparam_value_dict = case_studyparameters_dict[case]
-        databasecolumn_value_dict = leia.studycsv.get_database_parameter_for_case(
+        databasecolumn_value_dict = pyFoamStudy.studycsv.get_database_parameter_for_case(
                 args.studydir, 
                 case, 
                 columnlevel=1
@@ -85,7 +85,7 @@ def parse_arguments():
 
 
 def main():
-    CSVs = leia.studydir.CASE_CSVs
+    CSVs = pyFoamStudy.studydir.CASE_CSVs
 
     args = parse_arguments()
 
@@ -100,8 +100,8 @@ def main():
     args.json_variationfile = os.path.join(args.studydir, info['json_variationfile'])   
     args.casesfile          = os.path.join(args.studydir, info["casesfile"])
 
-    cases = leia.studydir.cases_ls(args.casesfile)
-    cases = leia.studydir.filter_existing_cases(cases)
+    cases = pyFoamStudy.studydir.cases_ls(args.casesfile)
+    cases = pyFoamStudy.studydir.filter_existing_cases(cases)
     study_df = agglomerate_study_data(args, cases, CSVs)
 
     if args.studyCSV is not None:
