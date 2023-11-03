@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-python -m pip install -e .
+python3 -m pip install -e .
