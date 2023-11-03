@@ -1,0 +1,25 @@
+name: Install Tests
+on:
+  push:
+    branches:
+      - main
+      - 'releases/**'
+jobs:
+  pyFoamStudy-install-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        # This is the version of the action for setting up Python, not the Python version.
+        uses: actions/setup-python@v4
+        with:
+          # Semantic version range syntax or exact version of a Python version
+          python-version: '3.9'
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: pip install 
+        run: ./pip-install.sh
+
+
