@@ -1,5 +1,6 @@
 import json
 import yaml
+import collections
 
 
 def read_yaml(file) -> dict:
@@ -24,13 +25,18 @@ def write_json(data, file) -> None:
 
 def read_list(file) -> list:
     with open(file, 'r', encoding='utf-8') as f:
-        lines = f.readlines()
+        lines = f.read().splitlines()
     if len(lines) > 1:
         # sep = '\n'
         return lines
     else:
         # sep = 'whitespace'
         return lines.split()
+    
+def write_list(ls, file) -> None:
+    assert isinstance(ls, collections.abc.Sequence)
+    with open(file,'w', encoding='utf-8') as f:
+        f.write('\n'.join(ls) + '\n')
 
 def read_info(infofile) -> dict:
     return read_yaml(infofile)
