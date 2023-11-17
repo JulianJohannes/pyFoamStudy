@@ -44,7 +44,7 @@ def create_parameterstudy(args):
         "--parameter-file=default.parameter",
         "--every-variant-one-case-execution",
         "--allow-derived-changes",
-        # "--create-database", 
+        "--create-database", 
         args.case, args.paramfile
         ],
         check=True
